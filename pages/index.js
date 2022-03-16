@@ -36,6 +36,10 @@ export default function Home() {
       });
 
       if (response.status == 200) {
+        const resJson = await response.json();
+        console.log("response =>", resJson);
+        window.localStorage.setItem("token", resJson.token);
+        window.localStorage.setItem("tokenExpTime", resJson.tokenExpTime);
         router.push("/home");
       } else if (response.status == 401) {
         setErrorMessage("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна");

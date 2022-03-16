@@ -1,6 +1,10 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { useEffect } from "react";
+import moment from "moment";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -10,6 +14,25 @@ const navigation = [
 ];
 
 const Home = () => {
+  const [profile, setProfile] = useState();
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    const tokenExpTime = window.localStorage.getItem("tokenExpTime");
+
+    if (moment().isAfter(moment(tokenExpTime))) {
+      setProfile("Log in");
+      console.log("TOKEN EXPIRED!!!!!!!");
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("tokenExpTime");
+      router.push("/");
+    } else {
+      setProfile("Admin");
+    }
+    console.log("Token: ", token, tokenExpTime);
+  }, []);
+
   return (
     <>
       <div className="relative bg-white overflow-hidden">
@@ -62,7 +85,7 @@ const Home = () => {
                       href="#"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
-                      Log in
+                      {profile}
                     </a>
                   </div>
                 </nav>
