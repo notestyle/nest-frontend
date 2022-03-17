@@ -21,7 +21,7 @@ const Home = () => {
     const token = window.localStorage.getItem("token");
     const tokenExpTime = window.localStorage.getItem("tokenExpTime");
 
-    if (moment().isAfter(moment(tokenExpTime))) {
+    if (!token || moment().isAfter(moment(tokenExpTime))) {
       setProfile("Log in");
       console.log("TOKEN EXPIRED!!!!!!!");
       window.localStorage.removeItem("token");
