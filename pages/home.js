@@ -46,7 +46,7 @@ const Home = () => {
         title,
         message,
         image: await getBase64(image),
-        date: moment().format("YYYY-MM-dd HH:mm:ss"),
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
       }),
     };
 
@@ -209,7 +209,7 @@ const Home = () => {
               </Transition>
             </Popover>
           </div>
-          <main className="mt-10 mx-auto">
+          <main className="mt-10 mx-auto ml-4 mr-4">
             <div className="sm:text-center lg:text-left">
               <h1 className="font-bold text-3xl">Blog post</h1>
               <div className="flex flex-col">
@@ -263,10 +263,11 @@ const Home = () => {
             </div>
             <div className="grid grid-cols-2 gap-4 mt-12">
               {news.map((x) => (
-                <div className="bg-white shadow-lg w-full h-40 p-5">
+                <div className="bg-white shadow-lg w-full p-5">
                   <h2 className="font-bold text-3xl">{x.title}</h2>
                   <p>{x.message}</p>
-                  <img src={x.image} alt={x.title} />
+                  <p>{x.date}</p>
+                  <img src={x.image} alt={x.title} className="object-cover" />
                 </div>
               ))}
             </div>
